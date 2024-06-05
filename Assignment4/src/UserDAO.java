@@ -2,8 +2,8 @@ public class UserDAO {
 
     private User[] users = new User[3];
 
-    public void adduser(String userName, int userId, String firstName, String lastName, String password){
-        User user = new User(userName, userId, firstName, lastName, password);
+    public void adduser(String userName, String firstName, String lastName, String password, String role){
+        User user = new User(userName, firstName, lastName, password, role);
         int counter = 0;
 		for (User u : users) {
 			if (u == null) {
@@ -15,11 +15,23 @@ public class UserDAO {
         System.out.println("User Added");
 		printusers();;
     }
+
+    public User finduser(String userName, String password){
+        User user = null;
+		for (User u : users) {
+			if (u != null && u.getuserName().equals(userName) && u.getpassword().equals(password)) {
+				user = u;
+                break;
+			}
+		}
+		printusers();
+        return user;
+    }
     
-    public boolean removeuser(int userId){
+    public boolean removeuser(String userName){
         int counter = 0;
 		for (User u : users) {
-			if (u.getuserId() == userId) {
+			if (u.getuserName() == userName) {
 				users[counter] = null;
 				break;
 			}
@@ -33,29 +45,15 @@ public class UserDAO {
         return true;
     }
 
-    
-    public boolean register(int userId, String role){
-        int counter = 0;
-        for (User u : users) {
-			if (userId== u.getuserId()) {
-				users[counter].setrole(role);
-				break;
-			}
-            counter++;
-            if (counter == users.length) {
-				return false;
-			}
-        }
-		printusers();
-        return true;
-    }
 
 	public void printusers(){
         for(User u : this.users){
             if(u != null){
-                System.out.println("user Name: "+u.getuserName()+" user id: "+ u.getuserId() +" firstname: "+u.getfirstName()+" lastname: "+u.getlastName()+ " role:"+u.getrole());
+                System.out.println("user Name: "+u.getuserName() +" firstname: "+u.getfirstName()+" lastname: "+u.getlastName()+ " role:"+u.getrole());
             }
         }    
     }
+
+
 
 }

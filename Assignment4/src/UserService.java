@@ -8,44 +8,48 @@ public class UserService {
 
 	public void addUser() {
         System.out.print("Enter a user name: ");
-        String userName = sc.nextLine();
-        System.out.print("Enter a user id: ");
-        int userId = sc.nextInt();
-        sc.nextLine(); 
+        String userName = sc.nextLine(); 
         System.out.print("Enter a first name: ");
         String firstName = sc.nextLine();
         System.out.print("Enter a last name: ");
         String lastName = sc.nextLine();
         System.out.print("Enter a password: ");
         String password = sc.nextLine();
-        userDAO.adduser(userName,userId, firstName, lastName, password);
+        System.out.print("Enter a role: ");
+        String role = sc.nextLine();
+        userDAO.adduser(userName,firstName, lastName, password, role);
         
 	}
 
-    public void removeTask() {
-        System.out.print("Enter the user id to remove: ");
-        int remove_id = sc.nextInt();
-        boolean remove = userDAO.removeuser(remove_id);
+    public void removeUser() {
+        System.out.print("Enter the user name to remove: ");
+        String userName = sc.nextLine();
+        boolean remove = userDAO.removeuser(userName);
         if(remove){
             System.out.println("User removed successfully.");
         } else {
-            System.out.println("User with the given ID not found.");
+            System.out.println("User with the given userName not found.");
         }
         
 	}
 
-    public void register(){
-        System.out.print("Register task id:");
-        int idx = sc.nextInt();
-        sc.nextLine(); 
-        System.out.print("Enter a user role: ");
-        String role = sc.nextLine();
-        boolean update = userDAO.register(idx, role);
-        if(update){
-            System.out.println("User register successfully.");
+    public void loginUser() {
+        System.out.print("Enter the user name: ");
+        String userName = sc.nextLine();
+        System.out.print("Enter the user password: ");
+        String password = sc.nextLine();
+        User user = userDAO.finduser(userName, password);
+        if (user != null) {
+            System.out.println("User found");
         } else {
-            System.out.println("User with the given ID not found.");
+            System.out.println("User not found");
         }
+        if(user.getrole().equals("Client")){
+            System.out.println("You can add, delete, update tasks");
+        }
+        if(user.getrole().equals("Visitor")){
+            System.out.println("You can only see tasks");
+        } 
     }
     
 

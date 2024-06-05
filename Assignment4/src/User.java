@@ -1,18 +1,17 @@
 public class User {
     
     private String userName;
-    private int userId;
     private String firstName;
     private String lastName;
     private String password;
     private String role;
 
-    public User(String userName, int userId, String firstName, String lastName, String password) {
+    public User(String userName, String firstName, String lastName, String password, String role) {
         this.userName = userName;
-        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.role = role;
         
     }
 
@@ -20,9 +19,6 @@ public class User {
         return this.userName;
     }
 
-    public int getuserId() {
-        return this.userId;
-    }
 
     public String getfirstName() {
         return this.firstName;
@@ -44,9 +40,6 @@ public class User {
         this.userName = userName;
     }
 
-    public void setuserId(int userId) {
-        this.userId = userId;
-    }
     
     public void setfirstName(String firstName) {
         this.firstName = firstName;
