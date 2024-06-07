@@ -5,6 +5,8 @@ public class Task {
     private String taskText;
     private String assignedTo; 
 
+    public Task() {
+    }
 
     public Task(int taskId, String taskTitle, String taskText) {
         this.taskId = taskId;
