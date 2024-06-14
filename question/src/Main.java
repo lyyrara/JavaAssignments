@@ -17,6 +17,8 @@ public class Main {
         int res2 = helper(a2);
         System.out.println(res1);
         System.out.println(res2);
+        System.out.println(helper("0123021"));
+        
        
 
     }
@@ -24,9 +26,8 @@ public class Main {
                
         int res = 0;
 
-        int count0, count1 , count2;
         for(int i = 0; i < s.length(); i++){
-            count0 = 0;count1 = 0; count2 = 0;
+            int count0 = 0;int count1 = 0; int count2 = 0;
             
             for(int j = i; j < s.length(); j++){
                 char c = s.charAt(j);
@@ -37,8 +38,9 @@ public class Main {
                 } else if (c == '2') {
                     count2++;
                 }
-                if(count0==count1 && count0 ==count2 && count1 == count2){
+                if(count0 != 0 && count1 != 0 && count2!=0 && count0==count1 && count0 ==count2){
                     res++;
+                    System.out.println(s.substring(i, j+1));
                 }
             }
         }
