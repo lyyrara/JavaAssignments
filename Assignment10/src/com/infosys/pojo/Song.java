@@ -6,6 +6,13 @@ public class Song {
     private String genre;
     private String album_name;
     
+    public Song(String name, String artist, String genre, String album_name) {
+        this.name = name;
+        this.artist = artist;
+        this.genre = genre;
+        this.album_name = album_name;
+    }
+
     
     public String getName() {
         return name;
@@ -31,12 +38,13 @@ public class Song {
     public void setAlbum_name(String album_name) {
         this.album_name = album_name;
     }
-    public Song(String name, String artist, String genre, String album_name) {
-        this.name = name;
-        this.artist = artist;
-        this.genre = genre;
-        this.album_name = album_name;
+
+
+    @Override
+    public String toString() {
+        return "Song [name=" + name + ", artist=" + artist + ", genre=" + genre + ", album_name=" + album_name + "]";
     }
+    
     
     
 }
