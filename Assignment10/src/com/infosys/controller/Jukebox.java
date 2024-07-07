@@ -75,7 +75,7 @@ public class Jukebox {
                     jukebox.playlistService.addPlaylistByCategory();
                     break;
                 case 11:
-                    jukebox.playlistService.displayAllPlaylist();
+                    jukebox.playlistService.displayPlaylistByName();
                     break;
                 case 0:
                     System.out.println("Exiting...");

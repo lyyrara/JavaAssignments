@@ -6,6 +6,7 @@ import com.infosys.pojo.Podcast;
 import com.infosys.pojo.Song;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,7 +26,12 @@ public class PlaylistService {
         System.out.print("Enter a playlist's name: ");
         String name = sc.nextLine();
         Playlist playlist = new Playlist(name);
-        playlistDao.addPlaylist(playlist);  
+        boolean added = playlistDao.addPlaylist(playlist); 
+        if (added) {
+            System.out.println("Playlist added successfully.");
+        } else {
+            System.out.println("Playlist not added.");
+        } 
 	}
 
 
@@ -73,7 +79,7 @@ public class PlaylistService {
         System.out.print("Enter a podcast's pubDate: ");
         String pubDate = sc.nextLine();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(pubDate, formatter);
         Podcast podcast = new Podcast(title, celebrity, localDate);
         boolean isAdded = playlistDao.addPodcastToPlaylist(podcast, playlist_name);
@@ -86,14 +92,21 @@ public class PlaylistService {
     }
 
     public void addPlaylistByCategory() {
-        System.out.println("Please choose playlist's category to display:");
-        String category = sc.nextLine();
-        if(category.equals("Song")){
-            addSongToPlaylist();
+        System.out.println("Please choose playlist's category to add: 1.song 2.podcast");
+        int option = sc.nextInt();
+        sc.nextLine();
+        List<Podcast> results = new ArrayList<>();
+        switch (option) {
+            case 1:
+                addSongToPlaylist();
+                break;
+            case 2:
+                addPodcastToPlaylist();
+                break;
+            default:
+                throw new AssertionError();
         }
-        else if(category.equals("Podcast")){
-            addPodcastToPlaylist();
-        }
+        displayPlaylistByName(); 
         
     }
 

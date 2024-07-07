@@ -13,8 +13,12 @@ public class PodcastDao {
     }
 
 
-    public void addPodcast(Podcast podcast) {
+    public boolean addPodcast(Podcast podcast) {
+        if(this.podcasts == null){
+            this.podcasts = new ArrayList<>();
+        }
 		this.podcasts.add(podcast);
+        return true;
 	}
 
 

@@ -24,12 +24,17 @@ public class PodcastService {
         String title = sc.nextLine();
         System.out.print("Enter a podcast's celebrity: ");
         String celebrity = sc.nextLine();
-        System.out.print("Enter a podcast's pubDate: ");
+        System.out.print("Enter a podcast's pubDate: yyyy-MM-dd ");
         String pubDate = sc.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(pubDate, formatter);
         Podcast podcast = new Podcast(title, celebrity, localDate);
-        podcastDao.addPodcast(podcast);    
+        boolean added = podcastDao.addPodcast(podcast); 
+        if (added) {
+            System.out.println("Podcast added successfully.");
+        } else {
+            System.out.println("Podcast not added.");
+        }   
 	}
 
 
@@ -38,9 +43,9 @@ public class PodcastService {
         String title = sc.nextLine();
         boolean removed = podcastDao.removePodcast(title);
         if (removed) {
-            System.out.println("Song removed successfully.");
+            System.out.println("Podcast removed successfully.");
         } else {
-            System.out.println("Song not found.");
+            System.out.println("Podcast not found.");
         }
     }
 
@@ -48,13 +53,14 @@ public class PodcastService {
     public List<Podcast> getPodcastsByCelebrity() {
         System.out.println("Please choose podcast's celebrity to display:");
         String celebrity = sc.nextLine();
-        return podcastDao.searchCelebrity(celebrity);
+        List<Podcast> results = podcastDao.searchCelebrity(celebrity);
+        return results;
     }
 
     public List<Podcast> getPodcastsByPubDate() {
         System.out.println("Please choose podcast's pubDate to display:");
         String pubDate = sc.nextLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(pubDate, formatter);
 
         if (localDate != null) {
@@ -66,27 +72,26 @@ public class PodcastService {
     }
 
     public void displayPodcastByCategory() {
-        System.out.println("Please choose podcast's category to display:");
-        String category = sc.nextLine();
-        List<Podcast> podcasts = new ArrayList<>();
-        if(category.equals("Celebrity")){
-            System.out.println("Please choose podcast's celebrity to display:");
-            String celebrity = sc.nextLine();
-            podcasts = podcastDao.searchCelebrity(celebrity);
-        }
-        else if(category.equals("PubDate")){
-            System.out.println("Please choose podcast's pubDate to display:");
-            String pubDate = sc.nextLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-            LocalDate localDate = LocalDate.parse(pubDate, formatter);
-            podcasts = podcastDao.searchPubdate(localDate);
+        System.out.println("Please choose podcast's category to display: 1.Celebrity 2.PubDate");
+        int option = sc.nextInt();
+        sc.nextLine();
+        List<Podcast> results = new ArrayList<>();
+        switch (option) {
+            case 1:
+                results = getPodcastsByCelebrity();
+                break;
+            case 2:
+                results = getPodcastsByPubDate();
+                break;
+            default:
+                throw new AssertionError();
         }
         
-        if (podcasts.isEmpty()) {
+        if (results.isEmpty()) {
             System.out.println("No podcast.");
         } else {
             System.out.println("All podcasts:");
-            for (Podcast podcast : podcasts) {
+            for (Podcast podcast : results) {
                 System.out.println(podcast.toString());
             }
         }

@@ -12,8 +12,13 @@ public class PlaylistDao {
     }
 
 
-    public void addPlaylist(Playlist playlist) {
+    public boolean addPlaylist(Playlist playlist) {
+		if(this.playlists == null){
+            this.playlists = new ArrayList<>();
+        }
 		this.playlists.add(playlist);
+        return true;
+	
 	}
 
     public boolean removePlaylist(String name) {
@@ -44,31 +49,20 @@ public class PlaylistDao {
 
 	public boolean addSongToPlaylist(Song song, String playlist_name){
 		Playlist playlist = getPlaylistByName(playlist_name);
-		if(playlist == null){
-            System.out.println("Playlist not found: " + playlist_name);
-			return false;
-        }
-		else{
-			playlist.getSongs().add(song);
-			System.out.println("Song added to playlist: " + playlist_name);
-			return true;
-		}
-		
+		playlist.getSongs().add(song);
+		System.out.println("Song added to playlist: " + playlist_name);
+		return true;
+	
 	}
 
 
 
 	public boolean addPodcastToPlaylist(Podcast podcast, String playlist_name){
-		Playlist playlist = getPlaylistByName(playlist_name);
-		if(playlist == null){
-            System.out.println("Playlist not found: " + playlist_name);
-			return false;
-        }
-		else{
-			playlist.getPodcasts().add(podcast);
-			System.out.println("Podcast added to playlist: " + playlist_name);
-			return true;
-		}
+		Playlist playlist = getPlaylistByName(playlist_name);	
+		playlist.getPodcasts().add(podcast);
+		System.out.println("Podcast added to playlist: " + playlist_name);
+		return true;
+
 		
 	}
 

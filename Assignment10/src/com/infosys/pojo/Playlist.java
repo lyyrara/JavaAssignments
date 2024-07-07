@@ -12,9 +12,12 @@ public class Playlist {
         this.name = name;
         this.songs = new ArrayList<>();
         this.podcasts = new ArrayList<>();
+        
     }
 
     public Playlist() {
+        this.songs = new ArrayList<>();
+        this.podcasts = new ArrayList<>();
     }
 
     public String getName() {
