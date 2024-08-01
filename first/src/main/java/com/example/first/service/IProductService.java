@@ -7,7 +7,7 @@ import com.example.first.model.Product;
 public interface IProductService {
     public void addProduct(Product product) ;
 
-    public Product findProduct(int id);
+    public Product findProduct(String productid);
 
     public List<Product> AllProducts();
 

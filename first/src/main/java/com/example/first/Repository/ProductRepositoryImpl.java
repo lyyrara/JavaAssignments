@@ -20,10 +20,10 @@ public class ProductRepositoryImpl implements IProductRepository{
     }
 
     @Override
-    public Product findProduct(int id) {
+    public Product findProduct(String productid) {
         Product product = null;
         for(Product p: products){
-            if(p.getId() == id){
+            if(p.getProductid().equals(productid)){
                 product = p;
                 break;
             }

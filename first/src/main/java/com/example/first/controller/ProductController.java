@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.first.model.Product;
@@ -17,6 +18,7 @@ import com.example.first.service.IProductService;
 
 
 @RestController
+@RequestMapping("/product/")
 public class ProductController {
 	@Autowired
 	IProductService productService;
@@ -25,7 +27,7 @@ public class ProductController {
 	}
 	
 	
-	@PostMapping("/addproduct")
+	@PostMapping("addproduct")
 	public String login( @RequestBody Product product) {
 		System.out.println(product.toString());
 		
@@ -34,9 +36,9 @@ public class ProductController {
 	}
     
 
-    @PostMapping("/findproduct")
+    @PostMapping("findproduct")
     public String findProduct(@RequestBody Product product) {
-		Product p = productService.findProduct(product.getId());
+		Product p = productService.findProduct(product.getProductid());
 		if(p == null){
 			return "Product not found.";
 		}
@@ -44,7 +46,7 @@ public class ProductController {
 		return "Find Successfull "+product.toString();
     }
 
-	@GetMapping("/list")
+	@GetMapping("list")
 	public String listAllProducts() {
 		List<Product> res =  productService.AllProducts();
 		if(res == null){
